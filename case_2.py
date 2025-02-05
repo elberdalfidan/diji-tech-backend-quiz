@@ -24,8 +24,36 @@ cases = [
 ]
 
 
-def getInaccessibleFactory(n, c):
-    pass
+def getInaccessibleFactory(n, factories):
+    """
+    Args:
+        n (int): Total cities (0 to n-1)
+        factories (list): Cities with factories
+    Returns:
+        int: Maximum distance between the farthest city and the factory
+    """
+    # If all cities have factories, the maximum distance is 0
+    if len(factories) == n:
+        return 0
+    
+    max_distance = 0
+    
+    # For each city, calculate the distance to the nearest factory
+    for city in range(n):
+        if city in factories:
+            continue  # Skip cities with factories
+            
+        # Calculate the distance to all factories
+        min_distance = float('inf')
+        for factory in factories:
+            # The distance between two cities is the absolute difference of their indices
+            distance = abs(city - factory)
+            min_distance = min(min_distance, distance)
+        
+        # Update the maximum distance to the nearest factory
+        max_distance = max(max_distance, min_distance)
+    
+    return max_distance
 
 
 if __name__ == "__main__":
